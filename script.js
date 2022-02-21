@@ -6,99 +6,95 @@ let currPlayer = "X";
 let gameOver = false;
 let board = new Array(10).fill(null);
 
+function checkCombination (index1, index2, index3){
 
+    let tile;
 
+    if (board[index1]== board[index2] && board[index2] == board[index3] && board[index3] !== " "){
+        tile = document.getElementById("tile"+index1);
+        tile.classList.add("winner");
+        tile = document.getElementById("tile"+index2);
+        tile.classList.add("winner");
+        tile = document.getElementById("tile"+index3);
+        tile.classList.add("winner");
+        gameOver = true;
+    }
+}
 
+function checkTie(){
 
+    let index = 1;
 
+    // If someone won the game already, it is not a tie game.
+    if(gameOver){
+        return false;
+    }
+
+    // Otherwise, check if the board has an empty spot in it.
+    while (board[index]!== " "){
+        console.log(index);
+        // If all 9 spaces on the board are not equal to null, then the game is over and it is a tie game.
+        if(index >=9){
+            gameOver = true;
+            return true;
+        }
+        // Otherwise, increment index and continue loop.
+        index+=1;
+    }
+
+    // If there is an empty space represented by a null in the Board array, then the game is not over yet.
+    return false;
+}
 
 function checkWinner(){
     // if there is a winning combination on the board, the game is over.
     // If the game is over, update the header on who won.
 
     let winner = currPlayer;
+    let tie = false;
 
     // Check rows for winning combination. 
     // Check row 1 for winning combination.   
-    if (board[1]== board[2] && board[2] == board[3] && board[3] != null){
-        header.innerText = `${winner} won the game!`
-        for(let i = 1; i < 4; i++){
-            tile = document.getElementById("tile"+i);
-            tile.classList.add("winner");
-        }
-        gameOver = true;
-        return;
-    }
-
+    checkCombination(1,2,3);
+    
     // Check row 2 for winning combination.
-    if (board[4]== board[5] && board[5] == board[6] && board[6] != null){
-        header.innerText = `${winner} won the game!`
-        for(let i = 4; i <= 6; i++){
-            tile = document.getElementById("tile"+i);
-            tile.classList.add("winner");
-        }
-        gameOver = true;
-        return;
-    }
+    checkCombination(4,5,6);
 
     // check row 3 for winning combination.
-    if (board[7]== board[8] && board[8] == board[9] && board[9] != null){
-        header.innerText = `${winner} won the game!`
-        for(let i = 7; i <= 9; i++){
-            tile = document.getElementById("tile"+i);
-            tile.classList.add("winner");
-        }
-        gameOver = true;
-        return;
-    }
+    checkCombination(7,8,9);
 
     // Check columns for winning combination.
     // Check column 1.
-    if (board[1]== board[4] && board[4] == board[7] && board[7] != null){
-        header.innerText = `${winner} won the game!`
-        for(let i = 1; i < 8; i+=3){
-            tile = document.getElementById("tile"+i);
-            tile.classList.add("winner");
-        }
-        gameOver = true;
-        return;
-    }
+    checkCombination(1,4,7);
 
     // Check column 2.
-    if (board[2]== board[5] && board[5] == board[8] && board[8] != null){
-        header.innerText = `${winner} won the game!`
-        for(let i = 2; i < 9; i+=3){
-            tile = document.getElementById("tile"+i);
-            tile.classList.add("winner");
-        }
-        gameOver = true;
-        return;
-    }
+    checkCombination(2,5,8);
 
     // Check column 3.
-    if (board[3]== board[6] && board[6] == board[9] && board[9] != null){
-        header.innerText = `${winner} won the game!`
-        for(let i = 3; i < 10; i+=3){
-            tile = document.getElementById("tile"+i);
-            tile.classList.add("winner");
-        }
-        gameOver = true;
-        return;
-    }
+    checkCombination(3,6,9);
+
+    // Check diagonals.
+    checkCombination(1,5,9);
+    checkCombination(3,5,7);
 
     // Check for cat's game.  No winners in this situation.
-    
+    tie = checkTie();
 
-
+    // If the game is over, indicate on the header how the game ended.  Otherwise, 
     // If there is no winner yet, change current player to the opposite player.
-    if (currPlayer == playerX){
-        currPlayer = playerO;
+    if(gameOver && tie){
+        header.innerText = `It's a tie game.`
+    } else if (gameOver && !tie){
+        header.innerText = `${currPlayer} won the game!`
     } else {
-        currPlayer = playerX;
-    }
-    // And update the header text.
-    header.innerText = `${currPlayer}'s turn!`
-    
+        if (currPlayer == playerX){
+            currPlayer = playerO;
+        } else {
+            currPlayer = playerX;
+        }
+        // And update the header text.
+        header.innerText = `${currPlayer}'s turn!`
+    }    
 }
 
 function setTile(e){
@@ -144,7 +140,7 @@ function setUpGame(){
     
     // reset board tracker.
     for(let i = 1; i < 10; i++){
-        board[i] = null;        
+        board[i] = " ";        
     }
     
     // reset game board on screen.
