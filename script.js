@@ -6,6 +6,12 @@ let currPlayer = "X";
 let gameOver = false;
 let board = new Array(10).fill(null);
 
+
+
+
+
+
+
 function checkWinner(){
     // if there is a winning combination on the board, the game is over.
     // If the game is over, update the header on who won.
@@ -14,7 +20,7 @@ function checkWinner(){
 
     // Check rows for winning combination. 
     // Check row 1 for winning combination.   
-    if (board[1]== board[2] && board[2] == board[3] && board[3] != ""){
+    if (board[1]== board[2] && board[2] == board[3] && board[3] != null){
         header.innerText = `${winner} won the game!`
         for(let i = 1; i < 4; i++){
             tile = document.getElementById("tile"+i);
@@ -25,7 +31,7 @@ function checkWinner(){
     }
 
     // Check row 2 for winning combination.
-    if (board[4]== board[5] && board[5] == board[6] && board[6] != ""){
+    if (board[4]== board[5] && board[5] == board[6] && board[6] != null){
         header.innerText = `${winner} won the game!`
         for(let i = 4; i <= 6; i++){
             tile = document.getElementById("tile"+i);
@@ -36,7 +42,7 @@ function checkWinner(){
     }
 
     // check row 3 for winning combination.
-    if (board[7]== board[8] && board[8] == board[9] && board[9] != ""){
+    if (board[7]== board[8] && board[8] == board[9] && board[9] != null){
         header.innerText = `${winner} won the game!`
         for(let i = 7; i <= 9; i++){
             tile = document.getElementById("tile"+i);
@@ -45,6 +51,44 @@ function checkWinner(){
         gameOver = true;
         return;
     }
+
+    // Check columns for winning combination.
+    // Check column 1.
+    if (board[1]== board[4] && board[4] == board[7] && board[7] != null){
+        header.innerText = `${winner} won the game!`
+        for(let i = 1; i < 8; i+=3){
+            tile = document.getElementById("tile"+i);
+            tile.classList.add("winner");
+        }
+        gameOver = true;
+        return;
+    }
+
+    // Check column 2.
+    if (board[2]== board[5] && board[5] == board[8] && board[8] != null){
+        header.innerText = `${winner} won the game!`
+        for(let i = 2; i < 9; i+=3){
+            tile = document.getElementById("tile"+i);
+            tile.classList.add("winner");
+        }
+        gameOver = true;
+        return;
+    }
+
+    // Check column 3.
+    if (board[3]== board[6] && board[6] == board[9] && board[9] != null){
+        header.innerText = `${winner} won the game!`
+        for(let i = 3; i < 10; i+=3){
+            tile = document.getElementById("tile"+i);
+            tile.classList.add("winner");
+        }
+        gameOver = true;
+        return;
+    }
+
+    // Check for cat's game.  No winners in this situation.
+    
+
 
     // If there is no winner yet, change current player to the opposite player.
     if (currPlayer == playerX){
