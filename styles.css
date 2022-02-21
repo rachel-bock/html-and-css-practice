@@ -1,0 +1,39 @@
+* {
+    margin: 0; // This sets the margin to 0 on all sides.
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;   // This sets the font style.
+    box-sizing: border-box;  // 
+}
+
+body {
+    height: 90vh;
+    width: 95vw;
+}
+
+#header {
+    width: 100%;
+    height: 10%;
+    font-weight: bolder;
+    background-color: lightblue;
+    border: 3px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#app{
+    height: 85%;
+    width: 100%;
+    border: 3px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#footer {
+    height: 5%;
+    width: 100%;
+    border: 3px solid black;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
