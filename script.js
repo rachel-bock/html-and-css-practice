@@ -1,10 +1,13 @@
-let header = document.getElementById("header");
-let gameBoard = document.getElementById("app");
+const header = document.getElementById("header");
+const gameBoard = document.getElementById("app");
+const resetButton = document.getElementById("btn");
 const playerO = "O";
 const playerX = "X";
 let currPlayer = "X";
 let gameOver = false;
 let board = new Array(10).fill(null);
+
+
 
 function checkCombination (index1, index2, index3){
 
@@ -160,12 +163,5 @@ function setUpGame(){
     }
 }
 
-function playGame(){
-
-    setUpGame();
-
-
-
-}
-
-playGame();
+resetButton.addEventListener('click', setUpGame);
+setUpGame();
