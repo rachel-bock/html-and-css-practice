@@ -62,16 +62,6 @@ body {
     justify-content: center;
 }
 
-.tile {
-    height: 33%;
-    width: 33%;
-    font-size: 150px;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .winner {
     background-color: lightblue;
     color: green;
